@@ -23,6 +23,60 @@ This will launch a Consul cluster consisting of 3 server nodes and a single agen
 
 Note that after launching the Docker containers, this does some simple smoke tests of the state of the cluster, and finally reports the apparent address of the agent, e.g.:
 
+    $ ./start.sh 
+    ==== creating encryption key ====
+    ==== starting servers ====
+    63672c755b067e3406f8fe60836be37fc9dcac1dbe61263ee5d870d5f10f4443
+    677eba0496049dc03cc20a1fe594589e437b5940117e61c62964de4d793476d2
+    1ea9f048753e4a0aa289d8b35cc0ee6318de24f9bcb60c768fbfa0ec2a38e11e
+    ==== starting agent ====
+    8b0ce0566abf3054aac8c1f07a6a7b5f9d4f60bd0fa7a051723adc9176494f55
+    ==== pausing ====
+    ==== docker processes ====
+    NAMES               STATUS              PORTS
+    agent0              Up 2 seconds        8300-8302/tcp, 8400/tcp, 8301-8302/udp, 0.0.0.0:8500->8500/tcp, 192.168.99.100:53->8600/tcp, 192.168.99.100:53->8600/udp
+    consul2             Up 2 seconds        8300-8302/tcp, 8400/tcp, 8500/tcp, 8301-8302/udp, 8600/tcp, 8600/udp
+    consul1             Up 2 seconds        8300-8302/tcp, 8400/tcp, 8500/tcp, 8301-8302/udp, 8600/tcp, 8600/udp
+    consul0             Up 2 seconds        8300-8302/tcp, 8400/tcp, 8500/tcp, 8301-8302/udp, 8600/tcp, 8600/udp
+    ==== consul members ====
+    Node     Address          Status  Type    Build  Protocol  DC
+    agent0   172.17.0.5:8301  alive   client  0.6.4  2         dc1
+    consul0  172.17.0.2:8301  alive   server  0.6.4  2         dc1
+    consul1  172.17.0.3:8301  alive   server  0.6.4  2         dc1
+    consul2  172.17.0.4:8301  alive   server  0.6.4  2         dc1
+    ==== consul node catalog ====
+    [
+        {
+            "Node": "agent0",
+            "Address": "172.17.0.5",
+            "TaggedAddresses": null,
+            "CreateIndex": 6,
+            "ModifyIndex": 6
+        },
+        {
+            "Node": "consul0",
+            "Address": "172.17.0.2",
+            "TaggedAddresses": null,
+            "CreateIndex": 3,
+            "ModifyIndex": 3
+        },
+        {
+            "Node": "consul1",
+            "Address": "172.17.0.3",
+            "TaggedAddresses": {
+                "wan": "172.17.0.3"
+            },
+            "CreateIndex": 4,
+            "ModifyIndex": 7
+        },
+        {
+            "Node": "consul2",
+            "Address": "172.17.0.4",
+            "TaggedAddresses": null,
+            "CreateIndex": 5,
+            "ModifyIndex": 5
+        }
+    ]
     ==== consul agent location ====
     http://192.168.99.100:8500
 
